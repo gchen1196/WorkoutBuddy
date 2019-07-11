@@ -2,6 +2,7 @@ import React from 'react';
 import Map from './Map.jsx';
 import TimeForm from './TimeForm.jsx';
 import WorkoutForm from './WorkoutForm.jsx';
+import UserList from './UserList.jsx';
 import axios from 'axios';
 
 class App extends React.Component {
@@ -21,7 +22,8 @@ class App extends React.Component {
       workouts: [],
       showTimeForm: false,
       showWorkoutForm: false,
-      users: []
+      users: [],
+      found: false
     }
     this.getGymInfo = this.getGymInfo.bind(this);
     this.onPageTwoClick = this.onPageTwoClick.bind(this);
@@ -72,6 +74,14 @@ class App extends React.Component {
   }
 
   render() {
+    if (this.state.found) {
+      return (
+        <div>
+          <h3>{`${this.state.users[0].gymName} (${this.state.users[0].gymLocation})`}</h3>
+          <UserList users={this.state.users} />
+        </div>
+      )
+    }
     if (this.state.showWorkoutForm) {
       return (
         <WorkoutForm getWorkoutForm={this.getWorkoutForm} />

@@ -35,7 +35,7 @@ class TimeForm extends React.Component {
   render() {
     return (
       <div>
-        <h1>When Are You Working Out?</h1>
+        <h1>When Can You Work Out?</h1>
         <form onSubmit={this.handleSubmit}>
           <label>
             Early Morning (5:00 AM - 6:59 AM)
