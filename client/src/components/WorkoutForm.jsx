@@ -4,8 +4,18 @@ class WorkoutForm extends React.Component {
   constructor (props) {
     super(props);
     this.state ={
-
+      chest: false,
+      back: false,
+      triceps: false,
+      biceps: false,
+      shoulders: false,
+      legs: false,
+      glutes: false,
+      abs: false,
+      cardio: false
     };
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
   }
 
   handleInputChange(event) {
@@ -18,11 +28,16 @@ class WorkoutForm extends React.Component {
     });
   }
 
+  handleSubmit(event) {
+    event.preventDefault();
+    this.props.getWorkoutForm(this.state);
+  }
+
   render() {
     return (
       <div>
         <h1>What Are You Hitting?</h1>
-        <form>
+        <form onSubmit={this.handleSubmit} >
           <label>
             Chest:
             <input
@@ -31,6 +46,7 @@ class WorkoutForm extends React.Component {
               checked={this.state.chest}
               onChange={this.handleInputChange} />
           </label>
+          <br />
           <label>
             Back:
             <input
@@ -39,6 +55,7 @@ class WorkoutForm extends React.Component {
               checked={this.state.back}
               onChange={this.handleInputChange} />
           </label>
+          <br />
           <label>
             Triceps:
             <input
@@ -47,6 +64,7 @@ class WorkoutForm extends React.Component {
               checked={this.state.triceps}
               onChange={this.handleInputChange} />
           </label>
+          <br />
           <label>
             Biceps:
             <input
@@ -55,6 +73,7 @@ class WorkoutForm extends React.Component {
               checked={this.state.biceps}
               onChange={this.handleInputChange} />
           </label>
+          <br />
           <label>
             Shoulders:
             <input
@@ -63,6 +82,7 @@ class WorkoutForm extends React.Component {
               checked={this.state.shoulders}
               onChange={this.handleInputChange} />
           </label>
+          <br />
           <label>
             Legs:
             <input
@@ -71,6 +91,7 @@ class WorkoutForm extends React.Component {
               checked={this.state.legs}
               onChange={this.handleInputChange} />
           </label>
+          <br />
           <label>
             Glutes:
             <input
@@ -79,6 +100,7 @@ class WorkoutForm extends React.Component {
               checked={this.state.glutes}
               onChange={this.handleInputChange} />
           </label>
+          <br />
           <label>
             Abs:
             <input
@@ -87,6 +109,7 @@ class WorkoutForm extends React.Component {
               checked={this.state.abs}
               onChange={this.handleInputChange} />
           </label>
+          <br />
           <label>
             Cardio:
             <input
@@ -102,3 +125,5 @@ class WorkoutForm extends React.Component {
     )
   }
 }
+
+export default WorkoutForm; 

@@ -1,6 +1,7 @@
 import React from 'react';
 import Map from './Map.jsx';
 import TimeForm from './TimeForm.jsx';
+import WorkoutForm from './WorkoutForm.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -23,6 +24,7 @@ class App extends React.Component {
     this.getGymInfo = this.getGymInfo.bind(this);
     this.onPageTwoClick = this.onPageTwoClick.bind(this);
     this.getTimeForm = this.getTimeForm.bind(this);
+    this.getWorkoutForm = this.getWorkoutForm.bind(this);
   }
 
   getGymInfo(gymKey, gymName, gymLocation, gymPhoto) {
@@ -40,13 +42,23 @@ class App extends React.Component {
         times.push(key);
       }
     }
-    this.setState({times}, () => this.setState({showTimeForm: false, showWorkoutForm: true}));
+    this.setState({times}, () => this.setState({showTimeForm: false, showWorkoutForm: false}));
+  }
+
+  getWorkoutForm(obj) {
+    const workouts = [];
+    for (var key in obj) {
+      if (obj[key]) {
+        workoutss.push(key);
+      }
+    }
+    this.setState({workouts}, () => this.setState({showTimeForm: false, showWorkoutForm: true}));
   }
 
   render() {
     if (this.state.showWorkoutForm) {
       return (
-        <WorkoutForm />
+        <WorkoutForm getWorkoutForm={this.getWorkoutForm} />
       )
     }
     if (this.state.showTimeForm) {
