@@ -2,6 +2,7 @@ import React from 'react';
 import Map from './Map.jsx';
 import TimeForm from './TimeForm.jsx';
 import WorkoutForm from './WorkoutForm.jsx';
+import axios from 'axios';
 
 class App extends React.Component {
   constructor(props) {
@@ -19,7 +20,8 @@ class App extends React.Component {
       times: [],
       workouts: [],
       showTimeForm: false,
-      showWorkoutForm: false
+      showWorkoutForm: false,
+      users: []
     }
     this.getGymInfo = this.getGymInfo.bind(this);
     this.onPageTwoClick = this.onPageTwoClick.bind(this);
@@ -42,17 +44,31 @@ class App extends React.Component {
         times.push(key);
       }
     }
-    this.setState({times}, () => this.setState({showTimeForm: false, showWorkoutForm: false}));
+    this.setState({times}, () => this.setState({showTimeForm: false, showWorkoutForm: true}));
   }
 
   getWorkoutForm(obj) {
     const workouts = [];
     for (var key in obj) {
       if (obj[key]) {
-        workoutss.push(key);
+        workouts.push(key);
       }
     }
-    this.setState({workouts}, () => this.setState({showTimeForm: false, showWorkoutForm: true}));
+    this.setState({workouts}, () => this.setState({showTimeForm: false, showWorkoutForm: false}, () => {
+      axios.get('/search', {
+        params: {
+          gymKey: this.state.gymKey, 
+          times: this.state.times, 
+          workouts: this.state.workouts
+        }
+      })
+      .then(response => {
+        this.setState({users: response.data}, () => this.setState({ found: true }));
+      })
+      .catch(error => {
+        console.log(error);
+      })
+    }));
   }
 
   render() {
