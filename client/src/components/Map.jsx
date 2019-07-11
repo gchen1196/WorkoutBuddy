@@ -2,7 +2,7 @@ import React from 'react';
 import GoogleMap from './GoogleMap.jsx';
 import data from '../../../database/sample.js';
 
-const Map = () => {
+const Map = (props) => {
 
   const addMarkers = data => map => {
     data.businesses.forEach((gym, index) => {
@@ -10,13 +10,13 @@ const Map = () => {
         map,
         position: { lat: gym.coordinates.latitude, lng: gym.coordinates.longitude },
         label: `${index + 1}`,
-        title: gym.name,
+        name: gym.name,
         key: gym.id,
         photo: gym.image_url,
         address: gym.location.display_address.join(' ')
       })
       marker.addListener(`click`, () => {
-        console.log(marker);
+        props.getGymInfo(marker.key, marker.name, marker.address, marker.photo);
       })
     })
   }
