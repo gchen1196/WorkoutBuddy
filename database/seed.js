@@ -61,15 +61,14 @@ db.once('open', () => {
   })
   .catch(err => console.log(err));
 })
-db.users.find({times: { $in: ["night"]}}, {firstName: "Noble"})
+
 
 db.users.find(
   {$and:[
-      {"times":{"$in":["night"]}},
-      {"workouts":{"$in":["biceps"]}},
-      {"gymKey": "YvWwrrhb_gNY52Xm7yHMTg"}
+      {times: {$in:["night"]}},
+      {workouts: {$in:["biceps"]}},
+      {gymKey: "YvWwrrhb_gNY52Xm7yHMTg"}
   ]}
 )
 
 
-ObjectId("5d268c58caebb2794e02d2e0")
