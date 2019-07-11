@@ -16,10 +16,13 @@ class App extends React.Component {
       gymLocation: '',
       gymPhoto: '',
       times: [],
-      workouts: []
+      workouts: [],
+      showTimeForm: false,
+      showWorkoutForm: false
     }
     this.getGymInfo = this.getGymInfo.bind(this);
     this.onPageTwoClick = this.onPageTwoClick.bind(this);
+    this.getTimeForm = this.getTimeForm.bind(this);
   }
 
   getGymInfo(gymKey, gymName, gymLocation, gymPhoto) {
@@ -30,10 +33,25 @@ class App extends React.Component {
     this.setState({showTimeForm: true});
   }
 
+  getTimeForm(obj) {
+    const times = [];
+    for (var key in obj) {
+      if (obj[key]) {
+        times.push(key);
+      }
+    }
+    this.setState({times}, () => this.setState({showTimeForm: false, showWorkoutForm: true}));
+  }
+
   render() {
+    if (this.state.showWorkoutForm) {
+      return (
+        <WorkoutForm />
+      )
+    }
     if (this.state.showTimeForm) {
       return (
-        <TimeForm />
+        <TimeForm getTimeForm={this.getTimeForm} />
       )
     }
     else {
